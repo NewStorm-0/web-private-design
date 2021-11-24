@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/vue.global.js"></script>
+    <title>学生信息管理系统</title>
+</head>
+<body>
+<form>
+
+    <fieldset>
+        <legend>登录界面</legend>
+        <div class="item">
+            <label for="account">账号：</label>
+            <input id="account" class="text" name="account" type="text" autofocus>
+            <br>
+            <span class="a1"></span>
+        </div>
+        <div class="item">
+            <label for="password">密码：</label>
+            <input id="password" class="text" name="password" type="password">
+            <br>
+            <span class="a2"></span>
+        </div>
+        <div class="itemA">
+            &nbsp;&nbsp;&nbsp;身份：
+            <input id="student" type="radio" name="identity" value="1" checked>
+            <label for="student">学生</label>
+            <input id="teacher" type="radio" name="identity" value="2">
+            <label for="teacher">教师</label>
+        </div>
+        <input class="button" name="Log" type="button" value="登录" onclick="logIn()">
+        <input class="register" name="Register" type="button" value="还没有账号？点我注册" onclick="register()">
+    </fieldset>
+</form>
+</body>
+</html>

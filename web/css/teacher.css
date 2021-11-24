@@ -1,0 +1,52 @@
+body {
+    background-color: rgb(29, 32, 33);
+    color: rgb(232, 230, 227);
+}
+
+div.t0 {
+    border-bottom: solid dimgray;
+    position: fixed;
+    top: 0;
+    height: 20pt;
+    font-size: 15pt;
+    width: 100vw;
+}
+
+#top {
+    width: 30vw;
+}
+
+#now-position {
+    width: 30vw;
+    text-align: center;
+}
+
+div.navigation {
+    position: fixed;
+    margin: 10pt 5pt;
+    border-right: solid darkgrey;
+    color: rgb(232, 230, 227);
+    width: 80pt;
+    height: 100%;
+    top: 12pt;
+}
+
+div.navigation > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+div.navigation > ul > li {
+    text-align: center;
+    margin: 10pt 5pt;
+    background-color: chocolate;
+    font-size: 15pt;
+    border: solid white;
+}
+
+div.c0 {
+    position: absolute;
+    top: 25pt;
+    left: 100pt;
+}

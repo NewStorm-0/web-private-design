@@ -1,0 +1,81 @@
+body {
+    background-color: rgb(29, 32, 33);
+}
+
+legend {
+    text-align: center;
+    color: rgb(232, 230, 227);
+}
+
+form {
+    color: rgb(232, 230, 227);
+    align-self: center;
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+input.text {
+    color: black;
+    margin-top: 12pt;
+    width: 60%;
+    background-color: azure;
+    padding: 0;
+}
+
+input.button {
+    width: 85%;
+    height: 35px;
+    border-style: none;
+    border-radius: 4pt;
+    background-color: rgb(11, 92, 184);
+    color: whitesmoke;
+    margin-top: 4pt;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#student {
+    margin: 0 auto;
+    text-align: left;
+    line-height: 35px;
+    width: auto;
+}
+
+#teacher {
+    margin: 0 auto;
+    text-align: left;
+    line-height: 35px;
+    width: auto;
+}
+
+label {
+    text-align: left;
+}
+
+div.itemA {
+    margin: 0 auto;
+    line-height: 35px;
+    float: left;
+}
+
+input.register {
+    width: 85%;
+    height: 35px;
+    border-style: none;
+    border-radius: 4pt;
+    background-color: rgba(76, 69, 72, 0.25);
+    color: rgba(245, 245, 245, 0.62);
+    margin-top: 6pt;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.a2,
+.a1 {
+    color: red;
+    font-size: 3pt;
+    line-height: 3pt;
+    text-align: left;
+}
