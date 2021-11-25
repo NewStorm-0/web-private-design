@@ -45,8 +45,7 @@ function logIn() {
         alert('账号或密码不规范');
         return;
     }
-    const identity = $('input[type=radio]:checked').val();
-    signData.identity = identity;
+    signData.identity = $('input[type=radio]:checked').val();
     $.post('./LoginServlet', signData, function (data) {
         userData = data;
         if (data[0] === '-' && data[1] === '1')
@@ -54,7 +53,7 @@ function logIn() {
         else {
             console.log("JSON.stringify(data) = " + JSON.stringify(data));
             sessionStorage.setItem("json", JSON.stringify(data));
-            window.location.href = "teacher.jsp";
+            window.location.href = "teacher_main.html";
         }
     });
 }

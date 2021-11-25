@@ -7,12 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/vue.global.js"></script>
     <title>学生信息管理系统</title>
 </head>
 <body>
 <form>
-
     <fieldset>
         <legend>登录界面</legend>
         <div class="item">
@@ -29,9 +27,9 @@
         </div>
         <div class="itemA">
             &nbsp;&nbsp;&nbsp;身份：
-            <input id="student" type="radio" name="identity" value="1" checked>
+            <input id="student" type="radio" name="identity" value="0" checked>
             <label for="student">学生</label>
-            <input id="teacher" type="radio" name="identity" value="2">
+            <input id="teacher" type="radio" name="identity" value="1">
             <label for="teacher">教师</label>
         </div>
         <input class="button" name="Log" type="button" value="登录" onclick="logIn()">

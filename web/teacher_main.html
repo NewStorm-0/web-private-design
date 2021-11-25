@@ -1,0 +1,56 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/teacher_main.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/vue.global.js"></script>
+    <script src="js/vue-router.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/teacher_main.js"></script>
+    <title>教师用户页面</title>
+</head>
+<body>
+<div class="t0">
+    <span id="top">欢迎您，{{name}}老师</span>
+    <span id="now-position">&nbsp;&nbsp; 当前位置：<span id="p0">个人中心</span></span>
+</div>
+<div class="navigation">
+    <ul>
+        <li>
+            <router-link :to="{path: '/'}">个人中心</router-link>
+        </li>
+        <li>
+            <router-link :to="{path: '/about'}">我的课程</router-link>
+        </li>
+    </ul>
+</div>
+<div class="c0">
+    <form class="i0">
+        账户名：
+        <input type="text" name="account" readonly>
+        <br><br>
+        &nbsp;&nbsp;&nbsp;姓名：
+        <input type="text" name="name" readonly>
+        <br><br>
+        &nbsp;&nbsp;&nbsp;工号：
+        <input type="text" name="school-id" readonly>
+    </form>
+    <br>
+    <div id="b0">
+        <button class="b0" type="button" onclick="myChangeInformation()" name="change">修改信息</button>
+        <br><br>
+        <button class="b0" type="button" onclick="myChangeKey()" name="changePw">修改密码</button>
+    </div>
+    <br>
+    <form class="i1">
+        原密码：
+        <input type="password" name="oldPw">
+        <br><br>
+        新密码：
+        <input type="password" name="newPw">
+    </form>
+</div>
+</body>
+</html>

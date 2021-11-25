@@ -28,7 +28,7 @@ public class SqlConnect {
         try {
             preparedStatement = conn.prepareStatement(sql);
             boolean flag = preparedStatement.execute();
-            if (flag == false) {
+            if (!flag) {
                 i++;
             }
         } catch (Exception e) {

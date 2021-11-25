@@ -1,9 +1,12 @@
 package com.entity;
 
+/**
+ * @author Administrator
+ */
 public class User {
-    private int id;
-    private String account;
-    private String password;
+    protected int id;
+    protected String account;
+    protected String password;
     private int identity;
 
     public User(int id, String account, String password, int identity) {
@@ -11,6 +14,12 @@ public class User {
         this.account = account;
         this.password = password;
         this.identity = identity;
+    }
+
+    @Override
+    public String toString() {
+        return ("User: id=" + id + ", account=" + account +
+                ", password=" + password + ", identity=" + identity);
     }
 
     public int getId() {

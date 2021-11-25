@@ -12,8 +12,10 @@ form {
     align-self: center;
     text-align: center;
     margin-top: 10%;
-    margin-left: 40%;
-    margin-right: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200pt;
+    height: 350pt;
 }
 
 input.text {

@@ -1,7 +1,8 @@
 package com.dao;
 
-import java.util.List;
-
+/**
+ * @author Administrator
+ */
 public interface TeacherDao {
-
+    boolean resetName(String name, int id);
 }

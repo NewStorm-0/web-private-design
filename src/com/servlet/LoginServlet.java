@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.dao.UserDao;
 import com.dao.UserDaoImp;
+import com.entity.Student;
 import com.entity.Teacher;
 import com.entity.User;
 import com.google.gson.Gson;
@@ -15,8 +16,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Administrator
@@ -29,20 +28,15 @@ public class LoginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.println("Error: 404");
         writer.flush();
+        writer.close();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = getInformation(req);
         if (user != null) {
-            HttpSession session = req.getSession();
-            responseOutWithJson(resp, user, session);
-//            if (user instanceof Teacher) {
-//                Teacher teacher = (Teacher) user;
-//                session.setAttribute("id", teacher.getId());
-//                req.setAttribute("name", teacher.getName());
-//                req.getRequestDispatcher("/teacher.jsp").forward(req, resp);
-//            }
+            setSession(req, user);
+            responseOutWithJson(resp, user);
         } else {
             // 设置响应类型:
             resp.setContentType("text/plain");
@@ -52,6 +46,7 @@ public class LoginServlet extends HttpServlet {
             pw.println(-1);
             // 最后不要忘记flush强制输出:
             pw.flush();
+            pw.close();
             System.out.println("登录失败");
         }
 
@@ -67,16 +62,17 @@ public class LoginServlet extends HttpServlet {
         return userDao.login(account, password, identity);
     }
 
-    private void responseOutWithJson(HttpServletResponse response, User user, HttpSession session) {
+    private void responseOutWithJson(HttpServletResponse response, User user) {
         //将实体对象转换为JSON Object转换
         Gson gson = new GsonBuilder().create();
         String json = "";
-        if (user instanceof Teacher) {
-            Teacher teacher = (Teacher) user;
+        if (user instanceof Teacher teacher) {
             json = gson.toJson(teacher);
             System.out.println("验证账号为老师成功");
         } else {
-
+            Student student = (Student) user;
+            json = gson.toJson(student);
+            System.out.println("验证账号为老师成功");
         }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
@@ -84,7 +80,7 @@ public class LoginServlet extends HttpServlet {
         try {
             out = response.getWriter();
             out.append(json);
-            session.setAttribute("id", user.getId());
+            out.flush();
             System.out.println("返回的数据是：" + json);
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,5 +89,11 @@ public class LoginServlet extends HttpServlet {
                 out.close();
             }
         }
+    }
+
+    private void setSession(HttpServletRequest req, User user) {
+        HttpSession session = req.getSession();
+        session.setAttribute("id", user.getId());
+        session.setAttribute("password", user.getPassword());
     }
 }
