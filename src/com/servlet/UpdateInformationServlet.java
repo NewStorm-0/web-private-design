@@ -1,9 +1,6 @@
 package com.servlet;
 
-import com.dao.TeacherDao;
-import com.dao.TeacherDaoImp;
-import com.dao.UserDao;
-import com.dao.UserDaoImp;
+import com.dao.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -50,7 +47,12 @@ public class UpdateInformationServlet extends HttpServlet {
             TeacherDao teacherDao = new TeacherDaoImp();
             flag = flag && teacherDao.resetName(name, id);
         } else {
-
+            String address = req.getParameter("address");
+            String mail = req.getParameter("mail");
+            String phone = req.getParameter("phone");
+            StudentDao studentDao = new StudentDaoImp();
+            flag = flag && studentDao.resetAddress(address, id) &&
+                    studentDao.resetMail(mail, id) && studentDao.resetPhone(phone, id);
         }
         try (PrintWriter pw = resp.getWriter()) {
             if (flag) {

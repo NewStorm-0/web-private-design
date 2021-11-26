@@ -87,7 +87,7 @@ function myChangeKey() {
             $.post('./UpdateInformationServlet', newPw, function (data) {
                 if (data[0] === '1') {
                     alert('修改密码成功');
-                    MySpace.data[4] = newPassword.val();
+                    MySpace.data.password = newPassword.val();
                     sessionStorage.setItem("json", JSON.stringify(MySpace.data));
                 } else {
                     alert('修改密码失败');

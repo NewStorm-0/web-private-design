@@ -1,47 +1,24 @@
 'use strict';
 var MySpace = MySpace || {};
 $(function () {
-    console.log(sessionStorage.getItem("json"))
+    //console.log(sessionStorage.getItem("json"))
     MySpace.data = $.parseJSON(sessionStorage.getItem("json"));
-    const TeacherData = {
+    const StudentData = {
         data() {
             return {
-                name: 'sb',//data[1]
-                mail: '202000400178@sdu.edu.com',
-                phone: '18772270718',
-                address: '山东大学软件学院'
+                name: MySpace.data.name
             }
         }
     }
-    Vue.createApp(TeacherData).mount('#top');
+    Vue.createApp(StudentData).mount('#studentName');
 
-    Vue.createApp({
-            data() {
-                return {
-                    name: 'Vue.js',
-                    schoolId: '',
-                    mail: '202000300989@sdu.com',
-                    phone: '17605437788',
-                    address: '山东大学软件学院'
-                }
-            },
-            methods: {
-                changeInformation() {
-
-                }
-            }
-        }
-    ).mount('form.i0');
+    $('input[name=name]').val(MySpace.data.name);
+    $('input[name=school-id]').val(MySpace.data.schoolId);
+    $('input[name=mail]').val(MySpace.data.mail);
+    $('input[name=phone]').val(MySpace.data.phone);
+    $('input[name=address]').val(MySpace.data.address);
 });
-function isTelOrMobile(telephone) {
-    var teleReg = /^((0\d{2,3})-)(\d{7,8})$/;  
-    var mobileReg =/^1[358]\d{9}$/;   
-    if (!teleReg.test(telephone) && !mobileReg.test(telephone)){  
-        return false;  
-    }else{  
-        return true;  
-    }  
-}
+
 function myChangeInformation() {
     var accountInput = $('input[name=account]');
     var nameInput = $('input[name=name]');
@@ -51,17 +28,19 @@ function myChangeInformation() {
     var buttonLeft = $('button[name=change]');
     if (buttonLeft.text() === "修改信息") {
         accountInput.attr("readonly", false);
-        nameInput.attr("readonly", false);
         mailInput.attr("readonly", false);
         phoneInput.attr("readonly", false);
         addressInput.attr("readonly", false);
         accountInput.css('background-color', 'white');
-        nameInput.css('background-color', 'white');
         mailInput.css('background-color', 'white');
         phoneInput.css('background-color', 'white');
         addressInput.css('background-color', 'white');
         $('button[name=change]').text("提交信息");
     } else {
+        if (!isTelOrMobile(phoneInput.val())) {
+            alert('手机号码格式不对');
+            return;
+        }
         accountInput.attr("readonly", true);
         nameInput.attr("readonly", true);
         mailInput.attr("readonly", true);
@@ -73,5 +52,47 @@ function myChangeInformation() {
         phoneInput.css('background-color', 'gray');
         addressInput.css('background-color', 'gray');
         $('button[name=change]').text("修改信息");
+    }
+}
+
+function myChangeKey() {
+    var buttonChangePw = $('button[name=changePw]');
+    var showElements = $('form.i1');
+    var oldPassword = $('input[name=oldPw]');
+    var newPassword = $('input[name=newPw]');
+    if (buttonChangePw.text() === '修改密码') {
+        buttonChangePw.text("提交密码");
+        showElements.css('display', 'inline');
+    } else {
+        if (oldPassword.val() === MySpace.data.password) {
+            var newPw = {
+                type: 'Password',
+                id: MySpace.data.id,
+                password: newPassword.val()
+            };
+            $.post('./UpdateInformationServlet', newPw, function (data) {
+                if (data[0] === '1') {
+                    alert('修改密码成功');
+                    MySpace.data.password = newPassword.val();
+                    sessionStorage.setItem("json", JSON.stringify(MySpace.data));
+                } else {
+                    alert('修改密码失败');
+                }
+            });
+        } else {
+            alert('原密码输入错误');
+        }
+        showElements.css('display', 'none');
+        buttonChangePw.text("修改密码");
+    }
+}
+
+function isTelOrMobile(telephone) {
+    var teleReg = /^((0\d{2,3})-)(\d{7,8})$/;
+    var mobileReg = /^1[358]\d{9}$/;
+    if (!teleReg.test(telephone) && !mobileReg.test(telephone)) {
+        return false;
+    } else {
+        return true;
     }
 }
