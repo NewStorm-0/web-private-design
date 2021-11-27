@@ -1,5 +1,7 @@
 package com.servlet;
 
+import com.dao.StudentDao;
+import com.dao.StudentDaoImp;
 import com.dao.UserDao;
 import com.dao.UserDaoImp;
 import com.entity.Student;
@@ -16,6 +18,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Administrator
@@ -71,7 +75,20 @@ public class LoginServlet extends HttpServlet {
             System.out.println("验证账号为老师成功");
         } else {
             Student student = (Student) user;
-            json = gson.toJson(student);
+            StudentDao studentDao = new StudentDaoImp();
+            Map<String, String> map = new HashMap<>();
+            map.put("account", student.getAccount());
+            map.put("identity", "0");
+            map.put("name", student.getName());
+            map.put("schoolId", student.getSchoolId());
+            map.put("major", studentDao.getMajor(student.getMajorId()));
+            map.put("year", String.valueOf(student.getYear()));
+            map.put("class", studentDao.getStudentClass(student.getClassId()));
+            map.put("phone", student.getPhone());
+            map.put("birthday", student.getBirthday().toString());
+            map.put("mail", student.getMail());
+            map.put("address", student.getAddress());
+            json = gson.toJson(map);
             System.out.println("验证账号为学生成功");
         }
         response.setCharacterEncoding("UTF-8");

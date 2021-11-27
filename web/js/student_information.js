@@ -14,24 +14,28 @@ $(function () {
 
     $('input[name=name]').val(MySpace.data.name);
     $('input[name=school-id]').val(MySpace.data.schoolId);
+    $('input[name=major]').val(MySpace.data.major);
+    $('input[name=year]').val(MySpace.data.year);
+    $('input[name=class]').val(MySpace.data.class);
+    $('input[name=birthday]').val(MySpace.data.birthday);
     $('input[name=mail]').val(MySpace.data.mail);
     $('input[name=phone]').val(MySpace.data.phone);
     $('input[name=address]').val(MySpace.data.address);
 });
 
 function myChangeInformation() {
-    var accountInput = $('input[name=account]');
-    var nameInput = $('input[name=name]');
+    //var accountInput = $('input[name=account]');
+    //var nameInput = $('input[name=name]');
     var mailInput = $('input[name=mail]');
     var phoneInput = $('input[name=phone]');
     var addressInput = $('input[name=address]');
     var buttonLeft = $('button[name=change]');
     if (buttonLeft.text() === "修改信息") {
-        accountInput.attr("readonly", false);
+        //accountInput.attr("readonly", false);
         mailInput.attr("readonly", false);
         phoneInput.attr("readonly", false);
         addressInput.attr("readonly", false);
-        accountInput.css('background-color', 'white');
+        //accountInput.css('background-color', 'white');
         mailInput.css('background-color', 'white');
         phoneInput.css('background-color', 'white');
         addressInput.css('background-color', 'white');
@@ -41,13 +45,13 @@ function myChangeInformation() {
             alert('手机号码格式不对');
             return;
         }
-        accountInput.attr("readonly", true);
-        nameInput.attr("readonly", true);
+        //accountInput.attr("readonly", true);
+        //nameInput.attr("readonly", true);
         mailInput.attr("readonly", true);
         phoneInput.attr("readonly", true);
         addressInput.attr("readonly", true);
-        accountInput.css('background-color', 'gray');
-        nameInput.css('background-color', 'gray');
+        //accountInput.css('background-color', 'gray');
+        //nameInput.css('background-color', 'gray');
         mailInput.css('background-color', 'gray');
         phoneInput.css('background-color', 'gray');
         addressInput.css('background-color', 'gray');
@@ -82,7 +86,7 @@ function myChangeKey() {
     var showElements = $('form.i1');
     var oldPassword = $('input[name=oldPw]');
     var newPassword = $('input[name=newPw]');
-    console.log(buttonChangePw.text());
+    //console.log(buttonChangePw.text());
     if (buttonChangePw.text() === "修改密码") {
         buttonChangePw.text("提交密码");
         showElements.css('display', 'inline');
@@ -106,6 +110,8 @@ function myChangeKey() {
             alert('原密码输入错误');
         }
         showElements.css('display', 'none');
+        oldPassword.val('');
+        newPassword.val('');
         buttonChangePw.text("修改密码");
     }
 }

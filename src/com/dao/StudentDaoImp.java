@@ -2,6 +2,9 @@ package com.dao;
 
 import com.util.SqlConnect;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class StudentDaoImp implements StudentDao {
     @Override
     public boolean resetMail(String mail, int id) {
@@ -59,5 +62,43 @@ public class StudentDaoImp implements StudentDao {
             System.out.println("执行的非更新语句");
             return false;
         }
+    }
+
+    @Override
+    public String getMajor(int id) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM major Where id = " + id + ";");
+            while (resultSet.next()) {
+                return resultSet.getString(2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getStudentClass(int id) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM class Where id = " + id + ";");
+            while (resultSet.next()) {
+                return resultSet.getString(2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

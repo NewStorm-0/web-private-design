@@ -53,7 +53,7 @@ function logIn() {
         else {
             //console.log("JSON.stringify(data) = " + JSON.stringify(data));
             sessionStorage.setItem("json", JSON.stringify(data));
-            if (data.identity === 0) {
+            if (data.identity === '0') {
                 window.location.href = "student_information.html";
             } else {
                 window.location.href = "teacher_main.html";

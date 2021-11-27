@@ -97,6 +97,8 @@ function myChangeKey() {
             alert('原密码输入错误');
         }
         showElements.css('display', 'none');
+        oldPassword.val('');
+        newPassword.val('');
         buttonRight.text("修改密码");
     }
 }
