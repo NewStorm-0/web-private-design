@@ -40,12 +40,12 @@ public class UpdateInformationServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         int identity = Integer.parseInt(req.getParameter("identity"));
         String account = req.getParameter("account");
-        String name = req.getParameter("name");
+        //String name = req.getParameter("name");
         UserDao userDao = new UserDaoImp();
         flag = userDao.resetAccount(account, id);
         if (identity == TEACHER) {
-            TeacherDao teacherDao = new TeacherDaoImp();
-            flag = flag && teacherDao.resetName(name, id);
+            //TeacherDao teacherDao = new TeacherDaoImp();
+            //flag = flag && teacherDao.resetName(name, id);
         } else {
             String address = req.getParameter("address");
             String mail = req.getParameter("mail");

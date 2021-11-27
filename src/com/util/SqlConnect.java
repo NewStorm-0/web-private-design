@@ -1,7 +1,5 @@
 package com.util;
 
-import com.mysql.cj.protocol.Resultset;
-
 import java.sql.*;
 
 public class SqlConnect {
@@ -15,7 +13,7 @@ public class SqlConnect {
 
     public static void init() throws SQLException, ClassNotFoundException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
             System.out.println("连接MySQL失败");

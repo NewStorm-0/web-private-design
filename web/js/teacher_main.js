@@ -52,15 +52,15 @@ function myChangeInformation() {
             type: 'Information',
             id: MySpace.data.id,
             identity: 1,
-            account: accountInput.val(),
-            name: nameInput.val()
+            account: accountInput.val()
+            //name: nameInput.val()
         };
         $.post('./UpdateInformationServlet', newData, function (data) {
             if (data[0] === '1') {
-                MySpace.data.name = newData.name;
+                //MySpace.data.name = newData.name;
                 MySpace.data.account = newData.account;
                 sessionStorage.setItem("json", JSON.stringify(MySpace.data));
-                alert('用户名修改成功');
+                alert('修改成功');
             } else {
                 alert('修改失败');
             }

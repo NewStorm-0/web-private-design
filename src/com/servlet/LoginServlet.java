@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             Student student = (Student) user;
             json = gson.toJson(student);
-            System.out.println("验证账号为老师成功");
+            System.out.println("验证账号为学生成功");
         }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

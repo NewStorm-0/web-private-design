@@ -51,6 +51,28 @@ function myChangeInformation() {
         mailInput.css('background-color', 'gray');
         phoneInput.css('background-color', 'gray');
         addressInput.css('background-color', 'gray');
+        var newData = {
+            type: 'Information',
+            id: MySpace.data.id,
+            identity: 0,
+            //account: accountInput.val(),
+            mail: mailInput.val(),
+            phone: phoneInput.val(),
+            address: addressInput.val()
+        };
+        $.post('./UpdateInformationServlet', newData, function (data) {
+            if (data[0] === '1') {
+                //MySpace.data.name = newData.name;
+                //MySpace.data.account = newData.account;
+                MySpace.data.mail = newData.mail;
+                MySpace.data.phone = newData.phone;
+                MySpace.data.adress = newData.address;
+                sessionStorage.setItem("json", JSON.stringify(MySpace.data));
+                alert('修改成功');
+            } else {
+                alert('修改失败');
+            }
+        });
         $('button[name=change]').text("修改信息");
     }
 }
@@ -60,7 +82,8 @@ function myChangeKey() {
     var showElements = $('form.i1');
     var oldPassword = $('input[name=oldPw]');
     var newPassword = $('input[name=newPw]');
-    if (buttonChangePw.text() === '修改密码') {
+    console.log(buttonChangePw.text());
+    if (buttonChangePw.text() === "修改密码") {
         buttonChangePw.text("提交密码");
         showElements.css('display', 'inline');
     } else {
@@ -90,9 +113,5 @@ function myChangeKey() {
 function isTelOrMobile(telephone) {
     var teleReg = /^((0\d{2,3})-)(\d{7,8})$/;
     var mobileReg = /^1[358]\d{9}$/;
-    if (!teleReg.test(telephone) && !mobileReg.test(telephone)) {
-        return false;
-    } else {
-        return true;
-    }
+    return !(!teleReg.test(telephone) && !mobileReg.test(telephone));
 }

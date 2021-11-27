@@ -2,9 +2,6 @@ package com.dao;
 
 import com.util.SqlConnect;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * @author Administrator
  */

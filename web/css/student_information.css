@@ -19,8 +19,7 @@ a:active {
 
 /* selected link */
 body {
-    background-color: rgb(29, 32, 33);
-    color: rgb(232, 230, 227);
+    background-color: cornsilk;
     /* background-position:center; */
     /* background-image: url(https://cdn.luogu.com.cn/upload/image_hosting/otpm4g11.png); */
     /* background-size:100% 100%; */
@@ -28,7 +27,7 @@ body {
 }
 
 h1 {
-    color: rgba(255, 165, 0, 0.58);
+    color: orange;
     text-align: center;
 }
 
@@ -38,7 +37,7 @@ h3 {
 
 /* 头部样式 */
 .header {
-    background-color: rgb(32, 35, 42);
+    background-color: #FFFFF0;
     padding: 20px;
     text-align: center;
 }
@@ -81,6 +80,14 @@ h3 {
     width: 25%;
 }
 
+input.g {
+    background-color: lightgray;
+}
+
+form.i1 {
+    display: none;
+}
+
 /* 列后清除浮动 */
 .row:after {
     content: "";
@@ -94,3 +101,4 @@ h3 {
         width: 100%;
     }
 }
+
