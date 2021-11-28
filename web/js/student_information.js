@@ -2,7 +2,7 @@
 var MySpace = MySpace || {};
 $(function () {
     //console.log(sessionStorage.getItem("json"))
-    MySpace.data = $.parseJSON(sessionStorage.getItem("json"));
+    MySpace.data = $.parseJSON(sessionStorage.getItem("information"));
     const StudentData = {
         data() {
             return {
@@ -12,6 +12,7 @@ $(function () {
     }
     Vue.createApp(StudentData).mount('#studentName');
 
+    $('input[name=account]').val(MySpace.data.account);
     $('input[name=name]').val(MySpace.data.name);
     $('input[name=school-id]').val(MySpace.data.schoolId);
     $('input[name=major]').val(MySpace.data.major);
@@ -52,9 +53,9 @@ function myChangeInformation() {
         addressInput.attr("readonly", true);
         //accountInput.css('background-color', 'gray');
         //nameInput.css('background-color', 'gray');
-        mailInput.css('background-color', 'gray');
-        phoneInput.css('background-color', 'gray');
-        addressInput.css('background-color', 'gray');
+        mailInput.css('background-color', 'lightgray');
+        phoneInput.css('background-color', 'lightgray');
+        addressInput.css('background-color', 'lightgray');
         var newData = {
             type: 'Information',
             id: MySpace.data.id,
@@ -71,7 +72,7 @@ function myChangeInformation() {
                 MySpace.data.mail = newData.mail;
                 MySpace.data.phone = newData.phone;
                 MySpace.data.adress = newData.address;
-                sessionStorage.setItem("json", JSON.stringify(MySpace.data));
+                sessionStorage.setItem("information", JSON.stringify(MySpace.data));
                 alert('修改成功');
             } else {
                 alert('修改失败');
@@ -101,7 +102,7 @@ function myChangeKey() {
                 if (data[0] === '1') {
                     alert('修改密码成功');
                     MySpace.data.password = newPassword.val();
-                    sessionStorage.setItem("json", JSON.stringify(MySpace.data));
+                    sessionStorage.setItem("information", JSON.stringify(MySpace.data));
                 } else {
                     alert('修改密码失败');
                 }

@@ -10,7 +10,9 @@ $(function () {
 function initializeTimetable() {
     var courseNumber = Object.getOwnPropertyNames(MySpace.data).length - 1;
     for (let i = 0; i < courseNumber; i++) {
-        if (!isOver(i)) {continue;}
+        if (!isOver(i)) {
+            continue;
+        }
         for (let j = 0; j < MySpace.data[i].day.length; j++) {
             var day = MySpace.data[i].day[j];
             var time = getRowDom(MySpace.data[i].time[j]);
@@ -82,4 +84,12 @@ function compareDate(d1, d2) {
             }
         }
     }
+}
+
+function toInformation() {
+    var e;
+    $.post('./StudentInformationServlet', e, function (data) {
+        sessionStorage.setItem("information", JSON.stringify(data));
+        window.location.href = "student_information.html";
+    });
 }

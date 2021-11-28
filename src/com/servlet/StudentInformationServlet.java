@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,14 +35,13 @@ public class StudentInformationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO 学生获取基本信息
-        String account = req.getParameter("account");
-        String password = req.getParameter("password");
-        int identity = Integer.parseInt(req.getParameter("identity"));
-        System.out.println("请求类型：Post, account: " + account + ", password: " +
-                password + ", identity: " + identity);
+        HttpSession session = req.getSession();
         UserDao userDao = new UserDaoImp();
-        User user = userDao.login(account, password, identity);
+        User user = userDao.login(
+                (String) session.getAttribute("account"),
+                (String) session.getAttribute("password"),
+                0
+        );
         Gson gson = new GsonBuilder().create();
         String json;
         Student student = (Student) user;

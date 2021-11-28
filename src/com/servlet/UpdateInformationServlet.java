@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/UpdateInformationServlet")
 public class UpdateInformationServlet extends HttpServlet {
@@ -37,7 +39,8 @@ public class UpdateInformationServlet extends HttpServlet {
 
     void updateInformation(HttpServletRequest req, HttpServletResponse resp) {
         boolean flag = false;
-        int id = Integer.parseInt(req.getParameter("id"));
+        HttpSession session = req.getSession();
+        int id = (Integer) session.getAttribute("id");
         int identity = Integer.parseInt(req.getParameter("identity"));
         String account = req.getParameter("account");
         //String name = req.getParameter("name");
