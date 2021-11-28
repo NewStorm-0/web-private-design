@@ -61,9 +61,9 @@ div.navigation > ul > li.other {
     text-decoration: none;
 }
 
-a {
+a.d{
     text-decoration: none;
-    color: rgb(232, 230, 227);
+    color: rgb(232, 230, 227);;
 }
 
 a.now {
@@ -79,24 +79,26 @@ div.c0 {
     align-self: center;
 }
 
-form.i0 > input {
-    background-color: gray;
-    border: solid #e8ad19;
+table, table tr th, table tr td {
+    border: 2px solid gray;
 }
 
-button.b0 {
-    background-color: dodgerblue;
-    border: solid rgba(184, 139, 26, 0.84);
-    border-radius: 4pt;
+table.a0 {
+    //width: 800pt;
+    margin-left: 100pt;
+    border-style: solid;
+    border-color: gray;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    table-layout: fixed;
 }
 
-form.i1 {
-    display: none;
+td {
+    word-wrap: break-word;
 }
 
-form.i1 > input {
-    background-color: white;
-    color: black;
-    border: solid #e8ad19;
+a.course {
+    color: dodgerblue;
 }
 

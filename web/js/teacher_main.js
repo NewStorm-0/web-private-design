@@ -102,3 +102,15 @@ function myChangeKey() {
         buttonRight.text("修改密码");
     }
 }
+
+function toCourse() {
+    var tId = {teacherId: MySpace.data.id};
+    $.post('./TeacherGetCourseServlet', tId, function (data) {
+        sessionStorage.setItem("allCourses", JSON.stringify(data));
+        window.location.href = "teacher_course.html";
+    });
+}
+
+function toCreateCourse() {
+
+}

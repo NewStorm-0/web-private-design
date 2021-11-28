@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
     private void responseOutWithJson(HttpServletResponse response, User user) {
         //将实体对象转换为JSON Object转换
         Gson gson = new GsonBuilder().create();
-        String json = "";
+        String json;
         if (user instanceof Teacher teacher) {
             json = gson.toJson(teacher);
             System.out.println("验证账号为老师成功");
