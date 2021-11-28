@@ -1,12 +1,7 @@
 package com.servlet;
 
-import com.dao.StudentDao;
-import com.dao.StudentDaoImp;
-import com.dao.UserDao;
-import com.dao.UserDaoImp;
-import com.entity.Student;
-import com.entity.Teacher;
-import com.entity.User;
+import com.dao.*;
+import com.entity.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.servlet.ServletException;
@@ -18,7 +13,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,21 +71,14 @@ public class LoginServlet extends HttpServlet {
             json = gson.toJson(teacher);
             System.out.println("验证账号为老师成功");
         } else {
-            Student student = (Student) user;
-            StudentDao studentDao = new StudentDaoImp();
-            Map<String, String> map = new HashMap<>();
-            map.put("account", student.getAccount());
-            map.put("identity", "0");
-            map.put("name", student.getName());
-            map.put("schoolId", student.getSchoolId());
-            map.put("major", studentDao.getMajor(student.getMajorId()));
-            map.put("year", String.valueOf(student.getYear()));
-            map.put("class", studentDao.getStudentClass(student.getClassId()));
-            map.put("phone", student.getPhone());
-            map.put("birthday", student.getBirthday().toString());
-            map.put("mail", student.getMail());
-            map.put("address", student.getAddress());
-            json = gson.toJson(map);
+            CourseSelectionDao courseSelectionDao = new CourseSelectionDaoImp();
+            List<CourseSelection> list = courseSelectionDao.getAllCourses(user.getId());
+            List<Course> courses = new ArrayList<>();
+            CourseDao courseDao = new CourseDaoImp();
+            for (CourseSelection temp : list) {
+                courses.add(courseDao.getSingleCourse(temp.getCourseId()));
+            }
+            json = gson.toJson(courses);
             System.out.println("验证账号为学生成功");
         }
         response.setCharacterEncoding("UTF-8");

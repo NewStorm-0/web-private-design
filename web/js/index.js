@@ -51,10 +51,14 @@ function logIn() {
         if (data[0] === '-' && data[1] === '1')
             alert('账号或密码错误');
         else {
-            //console.log("JSON.stringify(data) = " + JSON.stringify(data));
+            // console.log(data);
+            // console.log(typeof data);
             sessionStorage.setItem("json", JSON.stringify(data));
-            if (data.identity === '0') {
-                window.location.href = "student_information.html";
+            // console.log(sessionStorage.getItem("json"));
+            // console.log(typeof sessionStorage.getItem("json"));
+            // console.log('identity' in data);
+            if (!('identity' in data)) {
+                window.location.href = "student_main.html";
             } else {
                 window.location.href = "teacher_main.html";
             }

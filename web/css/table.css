@@ -1,0 +1,26 @@
+table{
+    color:whitesmoke;
+    text-align:center;
+    font-size:14px;
+    font-weight:bold;
+    margin-left:15vm;
+    margin-bottom: 20pt;
+    width:980px;
+    height:200px;
+    border-color: #71ae46;
+  }
+  
+  ._1234{
+    background-color:#96b744;
+  }
+  
+  ._5678{
+    background-color: #c4cc38;
+  }
+  
+  .course{
+    background-color: #eab026;
+  }
+  .head{
+    background-color: #e3852b;
+  }
