@@ -2,6 +2,9 @@ package com.entity;
 
 import java.sql.Date;
 
+/**
+ * @author Administrator
+ */
 public class Course {
     private int id;
     private String courseName;

@@ -23,6 +23,9 @@ import java.util.Map;
  */
 @WebServlet(urlPatterns = "/StudentCourseServlet")
 public class StudentCourseServlet extends HttpServlet {
+    private static final String GET_OPTIONAL_COURSES = "getOptionalCourses";
+    private static final String CHOOSE_COURSES = "chooseCourses";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
@@ -33,6 +36,16 @@ public class StudentCourseServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String service = req.getParameter("service");
+        if (GET_OPTIONAL_COURSES.equals(service)) {
+            responseOptionalCourses(req, resp);
+        } else if (CHOOSE_COURSES.equals(service)) {
+            chooseCourses(req, resp);
+        }
+
+    }
+
+    private void responseOptionalCourses(HttpServletRequest req, HttpServletResponse resp) {
         CourseDao courseDao = new CourseDaoImp();
         CourseSelectionDao courseSelectionDao = new CourseSelectionDaoImp();
         TeacherDao teacherDao = new TeacherDaoImp();
@@ -64,5 +77,9 @@ public class StudentCourseServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void chooseCourses(HttpServletRequest req, HttpServletResponse resp) {
+        //TODO 学生选课
     }
 }

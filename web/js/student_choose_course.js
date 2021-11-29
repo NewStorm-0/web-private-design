@@ -49,13 +49,11 @@ for (let i = 1; i <= rows; i++) {
     htmlstr += "<tr class=cell>";
     for (let j = 1; j <= cols; j++) {
         // htmlstr += "<td>" + i + "行" + j + "列" + "</td>";
-        //TODO 选择框不可选和颜色
         if (j == 1) {
             if (!(isSelected[i - 1] === "true")) {
-                htmlstr += "<td rowspan='1' style='width: 80px; color: black;'>" + '<input type="checkbox" name="' + toString(i) + '">' + "</td>";
-            }
-            else {
-                htmlstr += "<td rowspan='1' style='width: 80px; color: black;'>" + '<input class="hadSelected" type="checkbox" name="' + toString(i) + '" checked onclick="return false;">' + "</td>";
+                htmlstr += "<td rowspan='1' style='width: 80px; color: black;'>" + '<input type="checkbox" class="optional" name="' + i + '">' + "</td>";
+            } else {
+                htmlstr += "<td rowspan='1' style='width: 80px; color: black;'>" + '<input class="hadSelected" type="checkbox" name="' + i + '" checked onclick="return false;">' + "</td>";
             }
             htmlstr += "<td rowspan='1' style='width: 160px; color: black;'>" + teacher_name[i - 1] + "</td>";
         } else if (j == 2) {
@@ -72,5 +70,20 @@ htmlstr += "</table>";
 document.write(htmlstr);
 
 function chooseCourse() {
-    
+    var boxes = $('input.optional');
+    var chooseData = [];
+    for (let i = 0; i < boxes.length; i++) {
+        var a = $(boxes[i]);
+        if (a.prop('checked') === true) {
+            chooseData.push(parseInt(a.attr('name')));
+        }
+    }
+    //TODO 发送选课请求
+    $.post('./', {coursesId: chooseData}, function (data) {
+        for (let i = 0; i < boxes.length; i++) {
+            var a = $(boxes[i]);
+            a.prop('checked', true);
+        }
+        alert('选课成功');
+    });
 }
