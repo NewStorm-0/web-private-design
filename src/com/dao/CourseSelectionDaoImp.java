@@ -39,4 +39,23 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
         }
         return null;
     }
+
+    @Override
+    public boolean isSelected(int studentId, int courseId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM course_selection Where " +
+                            "student_id = " +
+                            studentId + " AND course_id = " + courseId + ";");
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

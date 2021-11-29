@@ -78,4 +78,38 @@ public class CourseDaoImp implements CourseDao {
         }
         return null;
     }
+
+    @Override
+    public List<Course> getOptionalCourses() {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Date date = new Date(System.currentTimeMillis());
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM course Where " +
+                            "course_selection_deadline > '" + date.toString() + "';");
+            List<Course> list = new ArrayList<>();
+            while (resultSet.next()) {
+                Course course = null;
+                int courseId = resultSet.getInt(1);
+                String courseName = resultSet.getString(2);
+                int credit = resultSet.getInt(4);
+                String description = resultSet.getString(5);
+                Date selectionDeadline = resultSet.getDate(6);
+                String day = resultSet.getString(7);
+                String time = resultSet.getString(8);
+                course = new Course(courseId, courseName, 1, credit,
+                        selectionDeadline, day, time);
+                course.setDescription(description);
+                list.add(course);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

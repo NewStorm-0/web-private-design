@@ -1,6 +1,10 @@
 package com.dao;
 
+import com.entity.Teacher;
 import com.util.SqlConnect;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author Administrator
@@ -23,5 +27,24 @@ public class TeacherDaoImp implements TeacherDao {
             System.out.println("执行的非更新语句");
             return false;
         }
+    }
+
+    @Override
+    public String getTeacherName(int id) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM teacher Where id = " + id + ";");
+            if (resultSet.next()) {
+                return resultSet.getString(3);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
