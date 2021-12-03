@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public class CourseSelectionDaoImp implements CourseSelectionDao {
     @Override
     public List<CourseSelection> getAllCourses(int studentId) {
@@ -68,8 +71,8 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
         }
         int state =
                 SqlConnect.addUpdateDelete("INSERT INTO course_selection ( student_id, " +
-                                "course_id ) VALUES ( " + studentId + ", "
-                                + courseId + " );");
+                        "course_id ) VALUES ( " + studentId + ", "
+                        + courseId + " );");
         SqlConnect.closeConn();
         if (state == 1) {
             System.out.println("插入 course_selection表：studentId=" + studentId + ", " +
@@ -80,6 +83,30 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
             System.out.println("错误SQL语句为：" + "INSERT INTO course_selection ( student_id, " +
                     "course_id ) VALUES ( " + studentId + ", "
                     + courseId + " );");
+            return false;
+        }
+    }
+
+    @Override
+    public boolean dropCourse(int studentId, int courseId) {
+        try {
+            SqlConnect.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sqlStatement =
+                "DELETE FROM course_selection WHERE student_id = " + studentId +
+                        " AND course_id = " + courseId + ";";
+        int state =
+                SqlConnect.addUpdateDelete(sqlStatement);
+        SqlConnect.closeConn();
+        if (state == 1) {
+            System.out.println("删除 course_selection表：studentId=" + studentId + ", " +
+                    "course_id=" + courseId);
+            return true;
+        } else {
+            System.out.println("CourseSelectionDaoImp.dropCourse执行语句错误");
+            System.out.println("错误SQL语句为：" + sqlStatement);
             return false;
         }
     }

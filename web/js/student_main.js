@@ -61,8 +61,8 @@ function isOver(x) {
         MySpace.data[x].selectionDeadline.indexOf(',')
     ));
     var deadline = new Date(year, month - 1, day, 0, 0, 0, 0);
-    console.log(now);
-    console.log(deadline);
+    //console.log(now);
+    //console.log(deadline);
     return compareDate(now, deadline);
 }
 
@@ -99,5 +99,13 @@ function toChooseCourse() {
     $.post('./StudentCourseServlet', e, function (data) {
         sessionStorage.setItem("optionalCourses", JSON.stringify(data));
         window.location.href = "student_choose_course.html";
+    });
+}
+
+function toDropCourse() {
+    var e = {service: 'getDropCourses'};
+    $.post('./StudentCourseServlet', e, function (data) {
+        sessionStorage.setItem("dropCourses", JSON.stringify(data));
+        window.location.href = "student_drop_course.html";
     });
 }

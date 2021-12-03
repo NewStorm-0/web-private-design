@@ -85,7 +85,7 @@ public class CourseDaoImp implements CourseDao {
             Date date = new Date(System.currentTimeMillis());
             ResultSet resultSet =
                     SqlConnect.selectSql("SELECT * FROM course Where " +
-                            "course_selection_deadline > '" + date.toString() + "';");
+                            "course_selection_deadline > '" + date + "';");
             List<Course> list = new ArrayList<>();
             while (resultSet.next()) {
                 Course course = null;

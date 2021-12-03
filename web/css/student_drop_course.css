@@ -102,21 +102,3 @@ form.i1 {
     }
 }
 
-input.hadSelected:after {
-    width: 10px;
-    height: 15px;
-    top: 0;
-    padding: 0 3px;
-    border-radius: 3px;
-    content: " ";
-    background-color: darkgray;
-    color: #fff;
-    display: inline-block;
-    visibility: visible;
-}
-
-input.hadSelected:checked:after {
-    content: "✓";
-    font-size: 12px;
-}
-
