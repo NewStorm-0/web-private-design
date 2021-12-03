@@ -112,5 +112,5 @@ function toCourse() {
 }
 
 function toCreateCourse() {
-
+    window.location.href = "teacher_createCourse.html";
 }

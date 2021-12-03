@@ -44,11 +44,6 @@ public class CourseDaoImp implements CourseDao {
     }
 
     @Override
-    public boolean addCourse(Course course) {
-        return false;
-    }
-
-    @Override
     public Course getSingleCourse(int courseId) {
         try {
             try {
@@ -111,5 +106,40 @@ public class CourseDaoImp implements CourseDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean addCourse(Course course) {
+        try {
+            SqlConnect.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String courseName = course.getCourseName();
+        int credit = course.getCredit();
+        String description = course.getDescription();
+        String deadline = course.getSelectionDeadline().toString();
+        String day = course.getDay();
+        String time = course.getTime();
+        int teacherId = course.getTeacherId();
+        int state =
+                SqlConnect.addUpdateDelete("INSERT INTO course ( course_name, teacher_id," +
+                        " credit, course_description, course_selection_deadline, course_day," +
+                        " course_time ) VALUES ( '" + courseName + "', " + teacherId + ", "
+                        + credit + ", '" + description + "', '" + deadline + "', " + day + ", "
+                        + time + " );");
+        SqlConnect.closeConn();
+        if (state == 1) {
+            System.out.println("插入course，数据为：" + course);
+            return true;
+        } else {
+            System.out.println("执行的非更新语句");
+            System.out.println("执行的SQL语句为：" + "INSERT INTO course ( course_name, teacher_id," +
+                    " credit, course_description, course_selection_deadline, course_day," +
+                    " course_time ) VALUES ( '" + courseName + "', " + teacherId + ", "
+                    + credit + ", '" + description + "', '" + deadline + "', " + day + ", "
+                    + time + " );");
+            return false;
+        }
     }
 }

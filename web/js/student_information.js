@@ -122,3 +122,11 @@ function isTelOrMobile(telephone) {
     var mobileReg = /^1[358]\d{9}$/;
     return !(!teleReg.test(telephone) && !mobileReg.test(telephone));
 }
+
+function toChooseCourse() {
+    var e = {service: "getOptionalCourses"};
+    $.post('./StudentCourseServlet', e, function (data) {
+        sessionStorage.setItem("optionalCourses", JSON.stringify(data));
+        window.location.href = "student_choose_course.html";
+    });
+}

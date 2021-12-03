@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CourseDao {
     List<Course> getAllCourses(int teacherId);
-    boolean addCourse(Course course);
     Course getSingleCourse(int courseId);
     List<Course> getOptionalCourses();
+    boolean addCourse(Course course);
 }

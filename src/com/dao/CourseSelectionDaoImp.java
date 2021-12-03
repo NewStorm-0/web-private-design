@@ -58,4 +58,29 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
         }
         return false;
     }
+
+    @Override
+    public boolean selectCourse(int studentId, int courseId) {
+        try {
+            SqlConnect.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int state =
+                SqlConnect.addUpdateDelete("INSERT INTO course_selection ( student_id, " +
+                                "course_id ) VALUES ( " + studentId + ", "
+                                + courseId + " );");
+        SqlConnect.closeConn();
+        if (state == 1) {
+            System.out.println("插入 course_selection表：studentId=" + studentId + ", " +
+                    "course_id=" + courseId);
+            return true;
+        } else {
+            System.out.println("CourseSelectionDaoImp.selectCourse执行语句错误");
+            System.out.println("错误SQL语句为：" + "INSERT INTO course_selection ( student_id, " +
+                    "course_id ) VALUES ( " + studentId + ", "
+                    + courseId + " );");
+            return false;
+        }
+    }
 }

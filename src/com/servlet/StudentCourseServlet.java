@@ -37,12 +37,12 @@ public class StudentCourseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String service = req.getParameter("service");
+        System.out.println("service类型为: " + service);
         if (GET_OPTIONAL_COURSES.equals(service)) {
             responseOptionalCourses(req, resp);
         } else if (CHOOSE_COURSES.equals(service)) {
             chooseCourses(req, resp);
         }
-
     }
 
     private void responseOptionalCourses(HttpServletRequest req, HttpServletResponse resp) {
@@ -80,6 +80,25 @@ public class StudentCourseServlet extends HttpServlet {
     }
 
     private void chooseCourses(HttpServletRequest req, HttpServletResponse resp) {
-        //TODO 学生选课
+        String[] coursesId = req.getParameterValues("coursesId[]");
+        HttpSession session = req.getSession();
+        int studentId = (Integer) session.getAttribute("id");
+        CourseSelectionDao courseSelection = new CourseSelectionDaoImp();
+        boolean flag = true;
+        for (String j : coursesId) {
+            if (!courseSelection.selectCourse(studentId, Integer.parseInt(j))) {
+                flag = false;
+            }
+        }
+        try (PrintWriter out = resp.getWriter()) {
+            if (flag) {
+                out.append('1');
+            } else {
+                out.append('0');
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

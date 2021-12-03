@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.Map;
 
 @WebServlet(urlPatterns = "/UpdateInformationServlet")
 public class UpdateInformationServlet extends HttpServlet {

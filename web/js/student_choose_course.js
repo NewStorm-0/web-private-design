@@ -49,7 +49,7 @@ for (let i = 1; i <= rows; i++) {
     htmlstr += "<tr class=cell>";
     for (let j = 1; j <= cols; j++) {
         // htmlstr += "<td>" + i + "行" + j + "列" + "</td>";
-        if (j == 1) {
+        if (j === 1) {
             if (!(isSelected[i - 1] === "true")) {
                 htmlstr += "<td rowspan='1' style='width: 80px; color: black;'>" + '<input type="checkbox" class="optional" name="' + i + '">' + "</td>";
             } else {
@@ -75,15 +75,28 @@ function chooseCourse() {
     for (let i = 0; i < boxes.length; i++) {
         var a = $(boxes[i]);
         if (a.prop('checked') === true) {
-            chooseData.push(parseInt(a.attr('name')));
+            chooseData.push(MySpace.data[parseInt(a.attr('name')) - 1].courseId);
         }
     }
-    //TODO 发送选课请求
-    $.post('./', {coursesId: chooseData}, function (data) {
-        for (let i = 0; i < boxes.length; i++) {
-            var a = $(boxes[i]);
-            a.prop('checked', true);
-        }
-        alert('选课成功');
+    var reqData = {service: 'chooseCourses', coursesId: chooseData};
+    $.post('./StudentCourseServlet', reqData, function (data) {
+        if (data[0] === '1') {
+            for (let i = 0; i < boxes.length; i++) {
+                var a = $(boxes[i]);
+                if (a.prop('checked') === true) {
+                    a.addClass('hadSelected');
+                    a.attr('onclick', 'return false;');
+                }
+            }
+            alert('选课成功');
+        } else alert('选课失败');
+    });
+}
+
+function toInformation() {
+    var e;
+    $.post('./StudentInformationServlet', e, function (data) {
+        sessionStorage.setItem("information", JSON.stringify(data));
+        window.location.href = "student_information.html";
     });
 }

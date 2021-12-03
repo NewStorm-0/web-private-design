@@ -15,6 +15,10 @@ public class Course {
     private String day;
     private String time;
 
+    public Course() {
+
+    }
+
     public Course(int id, String courseName, int teacherId, int credit,
                   Date selectionDeadline, String day, String time) {
         this.id = id;
@@ -88,5 +92,18 @@ public class Course {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseName='" + courseName + '\'' +
+                ", teacherId=" + teacherId +
+                ", credit=" + credit +
+                ", description='" + description + '\'' +
+                ", selectionDeadline=" + selectionDeadline +
+                ", day='" + day + '\'' +
+                ", time='" + time + '\'' +
+                '}';
     }
 }
