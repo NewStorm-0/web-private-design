@@ -1,5 +1,4 @@
 'use strict';
-//TODO 老师开设课程
 var MySpace = MySpace || {};
 MySpace.classNumber = 1;
 
