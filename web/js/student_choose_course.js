@@ -100,3 +100,11 @@ function toInformation() {
         window.location.href = "student_information.html";
     });
 }
+
+function toDropCourse() {
+    var e = {service: 'getDropCourses'};
+    $.post('./StudentCourseServlet', e, function (data) {
+        sessionStorage.setItem("dropCourses", JSON.stringify(data));
+        window.location.href = "student_drop_course.html";
+    });
+}

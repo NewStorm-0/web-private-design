@@ -130,3 +130,11 @@ function toChooseCourse() {
         window.location.href = "student_choose_course.html";
     });
 }
+
+function toDropCourse() {
+    var e = {service: 'getDropCourses'};
+    $.post('./StudentCourseServlet', e, function (data) {
+        sessionStorage.setItem("dropCourses", JSON.stringify(data));
+        window.location.href = "student_drop_course.html";
+    });
+}
