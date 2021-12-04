@@ -83,8 +83,8 @@ table, table tr th, table tr td {
     border: 2px solid gray;
 }
 
-table.a0 {
-    //width: 800pt;
+table {
+//width: 800pt;
     margin-left: 100pt;
     border-style: solid;
     border-color: gray;
@@ -100,5 +100,18 @@ td {
 
 a.course {
     color: dodgerblue;
+}
+
+button {
+    width: 100pt;
+    height: 20pt;
+    background-color: dodgerblue;
+    border: solid rgba(184, 139, 26, 0.84);
+    border-radius: 4pt;
+}
+
+input.grade {
+    background-color: rgb(29, 32, 33);
+    color: rgb(232, 230, 227);
 }
 

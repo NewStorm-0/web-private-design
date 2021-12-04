@@ -1,10 +1,8 @@
 package com.dao;
 
-import com.entity.Course;
 import com.entity.CourseSelection;
 import com.util.SqlConnect;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -106,6 +104,54 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
             return true;
         } else {
             System.out.println("CourseSelectionDaoImp.dropCourse执行语句错误");
+            System.out.println("错误SQL语句为：" + sqlStatement);
+            return false;
+        }
+    }
+
+    @Override
+    public List<Integer> getStudentsId(int courseId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM course_selection Where " +
+                            "course_id = " + courseId + ";");
+            List<Integer> list = new ArrayList<>();
+            while (resultSet.next()) {
+                list.add(resultSet.getInt(2));
+                list.add(resultSet.getInt(4));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean serGrade(int studentId, int courseId, int grade) {
+        try {
+            SqlConnect.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sqlStatement =
+                "UPDATE course_selection SET student_grade = " + grade +
+                        " WHERE student_id = " + studentId +
+                        " AND course_id = " + courseId + ";";
+        int state =
+                SqlConnect.addUpdateDelete(sqlStatement);
+        SqlConnect.closeConn();
+        if (state == 1) {
+            System.out.println("更新 course_selection表（studentId=" + studentId + ", " +
+                    "course_id=" + courseId + "）：student_grade=" + grade);
+            return true;
+        } else {
+            System.out.println("CourseSelectionDaoImp.setGrade执行语句错误");
             System.out.println("错误SQL语句为：" + sqlStatement);
             return false;
         }

@@ -37,18 +37,12 @@ public class TeacherGetCourseServlet extends HttpServlet {
         String json = gson.toJson(list);
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
-        PrintWriter out = null;
-        try {
-            out = resp.getWriter();
+        try (PrintWriter out = resp.getWriter()) {
             out.append(json);
             out.flush();
             System.out.println("返回的数据是：" + json);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
         }
     }
 }

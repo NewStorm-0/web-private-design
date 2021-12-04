@@ -64,8 +64,15 @@ function enterResults(x) {
     ));
     var deadline = new Date(year, month - 1, day, 0, 0, 0, 0);
     if (compareDate(now, deadline)) {
-        //TODO 教师录入成绩
-        alert("进入页面");
+        var p = {service: "getInformation", courseId: MySpace.data[x].id};
+        console.log(p.courseId);
+        $.post('./TeacherEnterResultsServlet', p, function (data) {
+            data[0].coursePosition = x;
+            console.log(data);
+            sessionStorage.setItem("courseInformation", JSON.stringify(data));
+            console.log(sessionStorage.getItem('courseInformation'));
+            window.location.href = "teacher_courseDetails.html";
+        });
     } else {
         alert("还未到选课截止时间");
     }
@@ -82,11 +89,7 @@ function compareDate(d1, d2) {
         } else if (d1.getMonth() < d2.getMonth()) {
             return false;
         } else {
-            if (d1.getDate() >= d2.getDate()) {
-                return true;
-            } else {
-                return false;
-            }
+            return d1.getDate() >= d2.getDate();
         }
     }
 }

@@ -101,4 +101,82 @@ public class StudentDaoImp implements StudentDao {
         }
         return null;
     }
+
+    @Override
+    public String getSchoolId(int id) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM student Where id = " + id + ";");
+            while (resultSet.next()) {
+                return resultSet.getString(3);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getName(int id) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM student Where id = " + id + ";");
+            while (resultSet.next()) {
+                return resultSet.getString(2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getMajorFromStudent(int studentId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM student Where id = " + studentId + ";");
+            while (resultSet.next()) {
+                int majorId = resultSet.getInt(4);
+                return getMajor(majorId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getClassFromStudent(int studentId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM student Where id = " + studentId + ";");
+            while (resultSet.next()) {
+                int classId = resultSet.getInt(6);
+                return getStudentClass(classId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

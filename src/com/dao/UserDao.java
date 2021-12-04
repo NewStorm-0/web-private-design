@@ -13,4 +13,5 @@ public interface UserDao {
     List<User> getUserAll();
     boolean resetPassword(String password, int id);
     boolean resetAccount(String account, int id);
+
 }

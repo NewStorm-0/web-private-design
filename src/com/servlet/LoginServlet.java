@@ -25,7 +25,7 @@ import java.util.Map;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         PrintWriter writer = resp.getWriter();
         writer.println("Error: 404");
         writer.flush();

@@ -11,4 +11,8 @@ public interface StudentDao {
     boolean resetAddress(String address, int id);
     String getMajor(int id);
     String getStudentClass(int id);
+    String getSchoolId(int id);
+    String getName(int id);
+    String getMajorFromStudent(int studentId);
+    String getClassFromStudent(int studentId);
 }

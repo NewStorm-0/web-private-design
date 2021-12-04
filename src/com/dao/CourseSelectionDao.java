@@ -9,4 +9,6 @@ public interface CourseSelectionDao {
     boolean isSelected(int studentId, int courseId);
     boolean selectCourse(int studentId, int courseId);
     boolean dropCourse(int studentId, int courseId);
+    List<Integer> getStudentsId(int courseId);
+    boolean serGrade(int studentId, int courseId, int grade);
 }
