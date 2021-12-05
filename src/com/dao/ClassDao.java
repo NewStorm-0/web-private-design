@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface ClassDao {
     List<Integer> getStudentsId(int classId);
+    List<com.entity.Class> getClassesList();
 }

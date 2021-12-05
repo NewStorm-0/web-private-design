@@ -4,16 +4,21 @@ import com.entity.Student;
 import com.entity.Teacher;
 import com.entity.User;
 import com.util.SqlConnect;
+import jakarta.servlet.ServletOutputStream;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
  * @author Administrator
  */
 public class UserDaoImp implements UserDao {
+    private static final int TEACHER = 1;
+    private static final int STUDENT = 0;
+
     @Override
     public User login(String account, String password, int identity) {
         try {
@@ -120,5 +125,106 @@ public class UserDaoImp implements UserDao {
     @Override
     public List<User> getUserAll() {
         return null;
+    }
+
+    @Override
+    public boolean createUser(User user) {
+        try {
+            SqlConnect.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        boolean flag = true;
+        if (user.getIdentity() == STUDENT) {
+            Student student = (Student) user;
+            int state = SqlConnect.addUpdateDelete("INSERT INTO user ( account, " +
+                    "password, identity ) VALUES ( '" + student.getAccount() + "', '" +
+                    student.getPassword() + "', 0 );");
+            if (state == 1) {
+                System.out.println("插入user表：account=" + student.getAccount() + ", " +
+                        "password=" + student.getPassword() + ", identity=0");
+            } else {
+                flag = false;
+                System.out.println("执行错误的SQL语句为：" + "INSERT INTO user ( account, " +
+                        "password, identity ) VALUES ( '" + student.getAccount() + "', '" +
+                        student.getPassword() + "', 0 );");
+            }
+            ResultSet rs = SqlConnect.selectSql("SELECT id FROM user WHERE account = '" +
+                    student.getAccount() + "' AND password = '" + student.getPassword() +
+                    "' AND identity = 0;");
+            try {
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    rs = SqlConnect.selectSql("SELECT schoolID FROM student order by id" +
+                            " desc " +
+                            "limit 1;");
+                    rs.next();
+                    int schoolId = rs.getInt(1) + 1;
+                    String s = "INSERT INTO student ( id, " +
+                            "name, schoolID, major_id, year, class_id, birthday) VALUES" +
+                            " (" + id + ", '" + student.getName() + "', '" + schoolId + "', " +
+                            student.getMajorId() + ", " +
+                            student.getYear() + ", " + student.getClassId() + ", '" +
+                            student.getBirthday() + "');";
+                    System.out.println(s);
+                    state = SqlConnect.addUpdateDelete(s);
+                    if (state == 1) {
+                        System.out.println("插入student表：id=" + id + ", name=" + student.getName()
+                                + ", major_id=" + student.getMajorId() + ", year=" + student.getYear()
+                                + ", class_id=" + student.getClassId() + ", birthday=" +
+                                student.getBirthday());
+                    } else {
+                        flag = false;
+                    }
+                } else {
+                    flag = false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return flag;
+        } else if (user.getIdentity() == TEACHER) {
+            Teacher teacher = (Teacher) user;
+            int state = SqlConnect.addUpdateDelete("INSERT INTO user ( account, " +
+                    "password, identity ) VALUES ( '" + teacher.getAccount() + "', '" +
+                    teacher.getPassword() + "', 1 );");
+            if (state == 1) {
+                System.out.println("插入user表：account=" + teacher.getAccount() + ", " +
+                        "password=" + teacher.getPassword() + ", identity=0");
+            } else {
+                flag = false;
+                System.out.println("执行错误的SQL语句为：" + "INSERT INTO user ( account, " +
+                        "password, identity ) VALUES ( '" + teacher.getAccount() + "', '" +
+                        teacher.getPassword() + "', 1 );");
+            }
+            ResultSet rs = SqlConnect.selectSql("SELECT id FROM user WHERE account = '" +
+                    teacher.getAccount() + "' AND password = '" + teacher.getPassword() +
+                    "' AND identity = 1;");
+            try {
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    rs = SqlConnect.selectSql("SELECT schoolID FROM teacher order by id" +
+                            " desc " +
+                            "limit 1;");
+                    rs.next();
+                    int schoolId = rs.getInt(1) + 1;
+                    state = SqlConnect.addUpdateDelete("INSERT INTO teacher ( id, " +
+                            "schoolID, name ) VALUES (" + id + ", '" + schoolId +
+                            "', '" + teacher.getName() + "');");
+                    if (state == 1) {
+                        System.out.println("插入teacher表：id=" + id + ", name=" + teacher.getName());
+                    } else {
+                        flag = false;
+                    }
+                } else {
+                    flag = false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return flag;
+        } else {
+            return false;
+        }
     }
 }

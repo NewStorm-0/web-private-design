@@ -1,9 +1,8 @@
 package com.dao;
 
-import com.entity.Course;
+import com.entity.Class;
 import com.util.SqlConnect;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +26,28 @@ public class ClassDaoIml implements ClassDao{
             List<Integer> list = new ArrayList<>();
             while (resultSet.next()) {
                 list.add(resultSet.getInt(1));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Class> getClassesList() {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM class;");
+            List<Class> list = new ArrayList<>();
+            while (resultSet.next()) {
+                Class c = new Class(resultSet.getInt(1), resultSet.getString(2));
+                list.add(c);
             }
             return list;
         } catch (SQLException e) {

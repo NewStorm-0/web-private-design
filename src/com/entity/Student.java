@@ -18,6 +18,9 @@ public class Student extends User {
     private String mail;
     private String address;
 
+    public Student() {
+    }
+
     public Student(int id, String account, String password, String schoolId, String name) {
         super(id, account, password, 0);
         this.schoolId = schoolId;

@@ -9,6 +9,9 @@ public class User {
     protected String password;
     private int identity;
 
+    public User() {
+    }
+
     public User(int id, String account, String password, int identity) {
         this.id = id;
         this.account = account;

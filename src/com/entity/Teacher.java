@@ -6,6 +6,9 @@ public class Teacher extends User {
     private String schoolId;
     private String name;
 
+    public Teacher() {
+    }
+
     public Teacher(int id, String account, String password, String schoolId, String name) {
         super(id, account, password, 1);
         this.schoolId = schoolId;

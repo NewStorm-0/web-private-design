@@ -96,3 +96,11 @@ function toChooseCourse() {
         window.location.href = "student_choose_course.html";
     });
 }
+
+function toCheckScore() {
+    var e = {service: 'getGrade'};
+    $.post('./StudentCourseServlet', e, function (data) {
+        sessionStorage.setItem("grades", JSON.stringify(data));
+        window.location.href = "student_check_score.html";
+    });
+}

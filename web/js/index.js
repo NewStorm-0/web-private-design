@@ -1,5 +1,5 @@
 'use strict'
-var account, password, check, signData, userData;
+var account, password, checkA, checkB, signData, userData;
 
 $(function () {
     account = $('#account');
@@ -11,12 +11,12 @@ $(function () {
         if (!re1.test(account.val())) {
             a.text('账号必须是1~10位数字或密码');
             account.css('border-color', 'rgb(198,33,33)');
-            check = false;
+            checkA = false;
         } else {
             a.text('');
             account.css('border-color', '');
             signData.account = account.val();
-            check = true;
+            checkA = true;
         }
     });
     password.blur(function () {
@@ -25,12 +25,12 @@ $(function () {
         if (!re1.test(password.val())) {
             a.text('密码必须为6~21位');
             password.css('border-color', 'rgb(198,33,33)');
-            check = false;
+            checkB = false;
         } else {
             a.text('');
             password.css('border-color', '');
             signData.password = password.val();
-            check = true;
+            checkB = true;
         }
     });
 });
@@ -41,7 +41,7 @@ function message(type) {
 }
 
 function logIn() {
-    if (!check) {
+    if (!(checkA && checkB)) {
         alert('账号或密码不规范');
         return;
     }
@@ -67,5 +67,9 @@ function logIn() {
 }
 
 function register() {
-    alert("register");
+    var e = {service: "getRegisterInformation"};
+    $.post('./RegisterServlet', e, function (data) {
+        sessionStorage.setItem("registerInfo", JSON.stringify(data));
+        window.location.href = "register.html"
+    });
 }

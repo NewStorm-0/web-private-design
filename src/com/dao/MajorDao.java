@@ -1,5 +1,7 @@
 package com.dao;
 
+import com.entity.Major;
+
 import java.util.List;
 
 /**
@@ -7,4 +9,5 @@ import java.util.List;
  */
 public interface MajorDao {
     List<Integer> getStudentsId(int majorId);
+    List<Major> getMajorsList();
 }
