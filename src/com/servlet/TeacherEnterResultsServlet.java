@@ -92,7 +92,7 @@ public class TeacherEnterResultsServlet extends HttpServlet {
         for (InitialData initialData : gradeList) {
             int studentId = Integer.parseInt(initialData.studentId);
             int grade = Integer.parseInt(initialData.grade);
-            if (!courseSelectionDao.serGrade(studentId, courseId, grade)) {
+            if (!courseSelectionDao.setGrade(studentId, courseId, grade)) {
                 flag = false;
             }
         }

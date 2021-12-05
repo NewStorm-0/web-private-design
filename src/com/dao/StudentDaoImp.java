@@ -179,4 +179,42 @@ public class StudentDaoImp implements StudentDao {
         }
         return null;
     }
+
+    @Override
+    public int getClassId(int studentId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM student Where id = " + studentId + ";");
+            while (resultSet.next()) {
+                return resultSet.getInt(6);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public int getMajorId(int studentId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT * FROM student Where id = " + studentId + ";");
+            while (resultSet.next()) {
+                return resultSet.getInt(4);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

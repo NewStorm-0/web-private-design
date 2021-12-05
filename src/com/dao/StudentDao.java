@@ -15,4 +15,6 @@ public interface StudentDao {
     String getName(int id);
     String getMajorFromStudent(int studentId);
     String getClassFromStudent(int studentId);
+    int getClassId(int studentId);
+    int getMajorId(int studentId);
 }

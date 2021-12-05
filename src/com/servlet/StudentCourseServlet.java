@@ -29,6 +29,7 @@ public class StudentCourseServlet extends HttpServlet {
     private static final String CHOOSE_COURSES = "chooseCourses";
     private static final String GET_DROP_COURSES = "getDropCourses";
     private static final String DROP_COURSES = "dropCourses";
+    private static final String GET_STUDENT_GRADES = "getGrade";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -50,6 +51,8 @@ public class StudentCourseServlet extends HttpServlet {
             responseDropCourses(req, resp);
         } else if (DROP_COURSES.equals(service)) {
             dropCourses(req, resp);
+        } else if (GET_STUDENT_GRADES.equals(service)) {
+            responseGrades(req, resp);
         }
     }
 
@@ -174,5 +177,69 @@ public class StudentCourseServlet extends HttpServlet {
         }
     }
 
+    private void responseGrades(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
+        int studentId = (Integer) session.getAttribute("id");
+        CourseSelectionDao courseSelectionDao = new CourseSelectionDaoImp();
+        CourseDao courseDao = new CourseDaoImp();
+        TeacherDao teacherDao = new TeacherDaoImp();
+        List<CourseSelection> selectionList = courseSelectionDao.getAllCourses(studentId);
+        List<Map<String, String>> returnedList = new ArrayList<>();
+        for (CourseSelection selectionTemp : selectionList) {
+            Course course = courseDao.getSingleCourse(selectionTemp.getCourseId());
+            java.sql.Date deadline = course.getSelectionDeadline();
+            java.sql.Date now = new Date(System.currentTimeMillis());
+            if (now.after(deadline)) {
+                Map<String, String> mapTemp = new HashMap<>(5);
+                mapTemp.put("courseName", course.getCourseName());
+                mapTemp.put("teacherName", teacherDao.getTeacherName(course.getTeacherId()));
+                mapTemp.put("studentGrade", String.valueOf(selectionTemp.getStudentGrade()));
+                mapTemp.put("classRank", String.valueOf(getClassRank(course.getId(), studentId)));
+                mapTemp.put("majorRank", String.valueOf(getMajorRank(course.getId(), studentId)));
+                returnedList.add(mapTemp);
+            }
+        }
+        Gson gson = new GsonBuilder().create();
+        String json = gson.toJson(returnedList);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json; charset=utf-8");
+        System.out.println("学生请求课程成绩及排名");
+        try (PrintWriter out = resp.getWriter()) {
+            out.append(json);
+            out.flush();
+            System.out.println("返回的数据是：" + json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private int getClassRank(int courseId, int studentId) {
+        StudentDao studentDao = new StudentDaoImp();
+        ClassDao classDao = new ClassDaoIml();
+        CourseSelectionDao courseSelectionDao = new CourseSelectionDaoImp();
+        List<Integer> studentsIdList = classDao.getStudentsId(studentDao.getClassId(studentId));
+        int grade = courseSelectionDao.getGrade(studentId, courseId);
+        int rank = 1;
+        for (Integer i : studentsIdList) {
+            if (courseSelectionDao.getGrade(i, courseId) > grade) {
+                rank++;
+            }
+        }
+        return rank;
+    }
+
+    private int getMajorRank(int courseId, int studentId) {
+        StudentDao studentDao = new StudentDaoImp();
+        MajorDao majorDao = new MajorDaoImp();
+        CourseSelectionDao courseSelectionDao = new CourseSelectionDaoImp();
+        List<Integer> studentsIdList = majorDao.getStudentsId(studentDao.getMajorId(studentId));
+        int grade = courseSelectionDao.getGrade(studentId, courseId);
+        int rank = 1;
+        for (Integer i : studentsIdList) {
+            if (courseSelectionDao.getGrade(i, courseId) > grade) {
+                rank++;
+            }
+        }
+        return rank;
+    }
 }

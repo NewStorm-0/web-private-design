@@ -4,7 +4,6 @@ var MySpace = MySpace || {};
 $(function () {
     MySpace.data = $.parseJSON(sessionStorage.getItem("json"));
     initializeTimetable();
-
 });
 
 function initializeTimetable() {
@@ -107,5 +106,13 @@ function toDropCourse() {
     $.post('./StudentCourseServlet', e, function (data) {
         sessionStorage.setItem("dropCourses", JSON.stringify(data));
         window.location.href = "student_drop_course.html";
+    });
+}
+
+function toCheckScore() {
+    var e = {service: 'getGrade'};
+    $.post('./StudentCourseServlet', e, function (data) {
+        sessionStorage.setItem("grades", JSON.stringify(data));
+        window.location.href = "student_check_score.html";
     });
 }

@@ -133,7 +133,7 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
     }
 
     @Override
-    public boolean serGrade(int studentId, int courseId, int grade) {
+    public boolean setGrade(int studentId, int courseId, int grade) {
         try {
             SqlConnect.init();
         } catch (Exception e) {
@@ -155,5 +155,26 @@ public class CourseSelectionDaoImp implements CourseSelectionDao {
             System.out.println("错误SQL语句为：" + sqlStatement);
             return false;
         }
+    }
+
+    @Override
+    public int getGrade(int studentId, int courseId) {
+        try {
+            try {
+                SqlConnect.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ResultSet resultSet =
+                    SqlConnect.selectSql("SELECT student_grade FROM course_selection " +
+                            "Where course_id = " + courseId + " AND student_id = " +
+                            studentId + ";");
+            while (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
