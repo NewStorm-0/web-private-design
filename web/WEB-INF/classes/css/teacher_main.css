@@ -1,0 +1,102 @@
+body {
+    background-color: rgb(29, 32, 33);
+    color: rgb(232, 230, 227);
+}
+
+div.t0 {
+    background-color: gray;
+    border-bottom: solid dimgray;
+    position: fixed;
+    top: 0;
+    height: 20pt;
+    font-size: 15pt;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+#top {
+    width: 30vw;
+    text-align: left;
+}
+
+#now-position {
+    position: relative;
+    left: 30vw;
+    width: 30vw;
+    text-align: center;
+}
+
+div.navigation {
+    position: fixed;
+    margin: 10pt 5pt;
+    border-right: solid darkgrey;
+    color: rgb(232, 230, 227);
+    width: 80pt;
+    height: 100%;
+    top: 12pt;
+}
+
+div.navigation > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li.now {
+    background-color: dodgerblue;
+    text-align: center;
+    margin: 10pt 5pt;
+    font-size: 15pt;
+    border: solid white;
+    text-decoration: none;
+}
+
+div.navigation > ul > li.other {
+    text-align: center;
+    margin: 10pt 5pt;
+    background-color: chocolate;
+    font-size: 15pt;
+    border: solid white;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(232, 230, 227);
+}
+
+a.now {
+    background-color: dodgerblue;
+}
+
+div.c0 {
+    margin: 40pt auto;
+    top: 25pt;
+    left: 100pt;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+}
+
+form.i0 > input {
+    background-color: gray;
+    border: solid #e8ad19;
+}
+
+button.b0 {
+    background-color: dodgerblue;
+    border: solid rgba(184, 139, 26, 0.84);
+    border-radius: 4pt;
+}
+
+form.i1 {
+    display: none;
+}
+
+form.i1 > input {
+    background-color: white;
+    color: black;
+    border: solid #e8ad19;
+}
+

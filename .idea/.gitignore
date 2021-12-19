@@ -7,4 +7,5 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 #user add
+../web/WEB-INF/classes/
 /WEB-INF/classes/

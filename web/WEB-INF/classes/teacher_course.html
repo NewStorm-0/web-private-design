@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/teacher_course.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"
+            type="text/javascript"></script>
+    <script type="text/javascript" src="js/vue.global.js"></script>
+    <script type="text/javascript" src="js/teacher_course.js"></script>
+    <title>教师用户页面</title>
+</head>
+<body>
+<div class="t0">
+    <span id="top">欢迎您，{{name}}老师</span>
+    <span id="now-position">&nbsp;&nbsp; 当前位置：<span id="p0">我的课程</span></span>
+</div>
+<div class="navigation">
+    <ul>
+        <li class="other">
+            <a href="teacher_main.html">个人中心</a>
+        </li>
+        <li class="now">
+            <a class="now" href="teacher_course.html">我的课程</a>
+        </li>
+        <li class="other">
+            <a href="teacher_createCourse.html">新开课程</a>
+        </li>
+    </ul>
+</div>
+<div class="c0">
+    <table class="a0">
+        <tr>
+            <th>课程名称</th>
+            <th>学分</th>
+            <th>课程描述</th>
+            <th>选课截止时间</th>
+            <th>上课时间</th>
+            <th>操作</th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
